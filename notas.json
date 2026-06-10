@@ -1,0 +1,11 @@
+{
+  "projectTree.rootFolderName": true,
+  "projectTree.ignoreFolders": [
+    "node_modules",
+    "vendor",
+    ".git",
+    "storage",
+    "bootstrap/cache"
+  ],
+  "projectTree.collapsedFolders": ["vendor", "node_modules"]
+}

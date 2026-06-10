@@ -1,0 +1,45 @@
+# 🚀 Sistema de Información - Laravel 12
+
+> Sistema de información empresarial desarrollado con Laravel 12.60.2 y PHP 8.2
+
+[![Laravel Version](https://img.shields.io/badge/Laravel-12.60.2-red.svg)](https://laravel.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2-blue.svg)](https://php.net)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+## 📋 Tabla de Contenidos
+- [Descripción](#descripción)
+- [Requisitos Previos](#requisitos-previos)
+- [Instalación Rápida](#instalación-rápida)
+- [Configuración Detallada](#configuración-detallada)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Base de Datos](#base-de-datos)
+- [Comandos Útiles](#comandos-útiles)
+- [Solución de Problemas](#solución-de-problemas)
+- [Despliegue](#despliegue)
+- [Contribución](#contribución)
+
+## 🎯 Descripción
+
+Este es el esqueleto base de un sistema de información empresarial construido con Laravel 12. Incluye:
+
+- ✅ Migraciones de base de datos
+- ✅ Seeders con datos de prueba
+- ✅ Autenticación base
+- ✅ Estructura MVC optimizada
+- ✅ Configuración multi-entorno
+
+## 📦 Requisitos Previos
+
+| Herramienta | Versión | Comando verificación |
+|------------|---------|---------------------|
+| PHP | ^8.2 | `php -v` |
+| Composer | ^2.0 | `composer --version` |
+| MySQL/MariaDB | ^8.0/^10.4 | `mysql --version` |
+| Node.js & NPM | ^18.x (opcional) | `node -v && npm -v` |
+| Git | ^2.0 | `git --version` |
+
+### Extensiones PHP requeridas:
+```bash
+php8.2-bcmath php8.2-ctype php8.2-curl php8.2-dom php8.2-fileinfo 
+php8.2-gd php8.2-json php8.2-mbstring php8.2-mysql php8.2-pdo 
+php8.2-tokenizer php8.2-xml php8.2-zip

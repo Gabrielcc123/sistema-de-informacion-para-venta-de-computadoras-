@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Iris Computer - User Management</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Note: Geist font is generally self-hosted, falling back to sans for preview if not loaded, but applying the classes as requested -->
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); /* Fallback for Geist */
+        :root {
+            --font-geist: 'Inter', sans-serif;
+        }
+        .font-headline-lg, .font-headline-md, .font-body-lg, .font-body-md, .font-display {
+            font-family: var(--font-geist);
+        }
+    </style>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#0e0e10",
+                        "surface-container-low": "#1b1b1d",
+                        "secondary": "#c0c7d3",
+                        "primary": "#8aebff",
+                        "surface-tint": "#2fd9f4",
+                        "on-secondary": "#2a313b",
+                        "on-secondary-container": "#afb5c2",
+                        "surface-container-high": "#2a2a2c",
+                        "primary-container": "#22d3ee",
+                        "outline-variant": "#3c494c",
+                        "on-tertiary-container": "#6e4600",
+                        "background": "#131315",
+                        "on-primary-container": "#005763",
+                        "tertiary-fixed-dim": "#ffb957",
+                        "on-secondary-fixed-variant": "#404752",
+                        "on-background": "#e4e2e4",
+                        "secondary-fixed": "#dce3f0",
+                        "tertiary": "#ffd6a3",
+                        "inverse-surface": "#e4e2e4",
+                        "surface-bright": "#39393b",
+                        "surface-variant": "#353437",
+                        "surface-container": "#1f1f21",
+                        "surface-container-highest": "#353437",
+                        "on-tertiary": "#462b00",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#a2eeff",
+                        "surface-dim": "#131315",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "on-secondary-fixed": "#151c25",
+                        "on-primary": "#00363e",
+                        "inverse-on-surface": "#303032",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "tertiary-fixed": "#ffddb5",
+                        "secondary-fixed-dim": "#c0c7d3",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#643f00",
+                        "secondary-container": "#404752",
+                        "inverse-primary": "#006877",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#001f25",
+                        "tertiary-container": "#ffb13b",
+                        "outline": "#859397",
+                        "on-surface": "#e4e2e4",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#bbc9cd",
+                        "on-tertiary-fixed": "#2a1800",
+                        "surface": "#131315"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Geist", "sans-serif"],
+                        "body-lg": ["Geist", "sans-serif"],
+                        "display": ["Geist", "sans-serif"],
+                        "headline-md": ["Geist", "sans-serif"],
+                        "label-md": ["JetBrains Mono", "monospace"],
+                        "body-md": ["Geist", "sans-serif"],
+                        "label-sm": ["JetBrains Mono", "monospace"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131315; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3c494c; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #859397; 
+        }
+
+        /* Custom Checkbox Styling for the Grid */
+        .tech-checkbox {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background-color: transparent;
+            border: 1px solid #3c494c; /* outline-variant */
+            border-radius: 2px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .tech-checkbox:checked {
+            background-color: #8aebff; /* primary */
+            border-color: #8aebff;
+            box-shadow: 0 0 10px rgba(138, 235, 255, 0.3);
+        }
+        .tech-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            width: 5px;
+            height: 10px;
+            border: solid #00363e; /* on-primary */
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .tech-checkbox:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(138, 235, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar Component -->
+<nav class="fixed left-0 top-0 h-full w-[260px] bg-surface-container border-r border-outline-variant flex flex-col py-6 hidden md:flex z-50">
+<!-- Header -->
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-10 h-10 bg-primary/10 rounded border border-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined font-bold">memory</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Iris Computer</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">ERP System</p>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex-1 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span class="font-label-md text-label-md uppercase">Main Panel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+<span class="font-label-md text-label-md uppercase">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">payments</span>
+<span class="font-label-md text-label-md uppercase">Sales</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">reset_wrench</span>
+<span class="font-label-md text-label-md uppercase">Technical Service</span>
+</a>
+<!-- Active Tab based on User Management Context -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary/10 border-r-2 border-primary rounded-l-lg hover:bg-surface-container-highest transition-all duration-200 scale-[0.98] origin-left" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+<span class="font-label-md text-label-md uppercase font-bold">Administration</span>
+</a>
+</div>
+<!-- Footer Tab -->
+<div class="px-2 mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-error hover:bg-error/10 transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-error" style="font-variation-settings: 'FILL' 0;">logout</span>
+<span class="font-label-md text-label-md uppercase">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col min-w-0 md:ml-[260px] bg-surface">
+<!-- TopNavBar Component -->
+<header class="flex justify-between items-center h-16 px-container-padding bg-surface-container border-b border-outline-variant sticky top-0 z-40">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Trigger (hidden on desktop) -->
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex items-center bg-surface border border-outline-variant rounded-md px-3 py-1.5 focus-within:ring-1 focus-within:ring-primary/50 focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md text-on-surface placeholder:text-on-surface-variant w-64 p-0" placeholder="Search system..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-200 rounded-full hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-200 rounded-full hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-200 rounded-full hover:bg-surface-container-highest ml-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Page Content -->
+<div class="flex-1 p-container-padding max-w-[1600px] w-full mx-auto overflow-y-auto">
+<!-- Page Header -->
+<div class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">System Access &amp; Security</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage personnel access levels and module permissions across the ERP.</p>
+</div>
+<!-- Two Column Layout -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Left Column: User Table -->
+<div class="xl:col-span-7 flex flex-col gap-4">
+<div class="bg-surface-container border border-outline-variant rounded-xl overflow-hidden flex flex-col h-full shadow-lg shadow-black/20">
+<!-- Table Toolbar -->
+<div class="p-4 border-b border-outline-variant flex flex-wrap gap-4 justify-between items-center bg-surface-container-highest/30">
+<div class="relative w-full max-w-sm">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface border border-outline-variant rounded-lg pl-9 pr-4 py-2 text-body-md text-on-surface placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Filter users by name or email..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md uppercase px-4 py-2 rounded-lg flex items-center gap-2 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300 active:scale-95 whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                                Crear Usuario
+                            </button>
+</div>
+<!-- Table Wrapper -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-bright border-b border-outline-variant">
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Name</th>
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Email</th>
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Role</th>
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Status</th>
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider whitespace-nowrap text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-highest transition-colors duration-150 group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-surface font-label-md">AL</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Adrian Lamo</span>
+</div>
+</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant">a.lamo@iris.com</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface">Administrator</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm uppercase bg-primary/10 border border-primary/20 text-primary">Active</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-1 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">edit_square</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-highest transition-colors duration-150 group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-surface font-label-md">MR</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Maria Rossi</span>
+</div>
+</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant">m.rossi@iris.com</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface">Vendor</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm uppercase bg-primary/10 border border-primary/20 text-primary">Active</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-1 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">edit_square</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-highest transition-colors duration-150 group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-surface font-label-md">JT</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">John Titor</span>
+</div>
+</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant">j.titor@iris.com</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface">Tech Lead</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm uppercase bg-error/10 border border-error/20 text-error">Inactive</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-1 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">edit_square</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-highest transition-colors duration-150 group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-surface font-label-md">SK</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Sarah Kerrigan</span>
+</div>
+</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface-variant">s.kerrigan@iris.com</td>
+<td class="py-3 px-4 font-body-md text-body-md text-on-surface">Auditor</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm uppercase bg-primary/10 border border-primary/20 text-primary">Active</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-1 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">edit_square</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination (Static representation) -->
+<div class="p-4 border-t border-outline-variant bg-surface-container mt-auto flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Showing 1 to 4 of 48 entries</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded flex items-center justify-center border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-primary/10 border border-primary text-primary font-label-md transition-colors">1</button>
+<button class="w-8 h-8 rounded flex items-center justify-center border border-outline-variant text-on-surface hover:border-primary hover:text-primary font-label-md transition-colors">2</button>
+<span class="text-on-surface-variant">...</span>
+<button class="w-8 h-8 rounded flex items-center justify-center border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Permissions Matrix -->
+<div class="xl:col-span-5 flex flex-col gap-4">
+<div class="bg-surface-container border border-outline-variant rounded-xl overflow-hidden shadow-lg shadow-black/20 flex flex-col h-full">
+<div class="p-5 border-b border-outline-variant bg-gradient-to-r from-surface-container to-surface-bright flex justify-between items-center">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Permissions Matrix</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 uppercase tracking-wider">Global Policy Assignment</p>
+</div>
+<button class="text-primary hover:bg-primary/10 p-2 rounded-lg transition-colors" title="Save Matrix">
+<span class="material-symbols-outlined">save</span>
+</button>
+</div>
+<div class="overflow-x-auto p-4 flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr>
+<th class="py-3 px-2 font-label-md text-label-md text-on-surface-variant uppercase border-b border-outline-variant w-1/3">Module</th>
+<th class="py-3 px-2 font-label-md text-label-md text-on-surface-variant uppercase text-center border-b border-outline-variant">Admin</th>
+<th class="py-3 px-2 font-label-md text-label-md text-on-surface-variant uppercase text-center border-b border-outline-variant">Vendor</th>
+<th class="py-3 px-2 font-label-md text-label-md text-on-surface-variant uppercase text-center border-b border-outline-variant">Tech</th>
+<th class="py-3 px-2 font-label-md text-label-md text-on-surface-variant uppercase text-center border-b border-outline-variant">Auditor</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<!-- Inventory Module -->
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-2 text-on-surface font-body-md">
+<span class="material-symbols-outlined text-outline-variant text-[18px]">inventory_2</span>
+                                                Inventory
+                                            </div>
+</td>
+<td class="py-4 px-2 text-center"><input checked="" class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input checked="" class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input checked="" class="tech-checkbox" type="checkbox"/></td>
+</tr>
+<!-- Sales Module -->
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-2 text-on-surface font-body-md">
+<span class="material-symbols-outlined text-outline-variant text-[18px]">payments</span>
+                                                Sales
+                                            </div>
+</td>
+<td class="py-4 px-2 text-center"><input checked="" class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input checked="" class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input checked="" class="tech-checkbox" type="checkbox"/></td>
+</tr>
+<!-- Customers Module -->
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-2 text-on-surface font-body-md">
+<span class="material-symbols-outlined text-outline-variant text-[18px]">group</span>
+                                                Customers
+                                            </div>
+</td>
+<td class="py-4 px-2 text-center"><input checked="" class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input checked="" class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input class="tech-checkbox" type="checkbox"/></td>
+</tr>
+<!-- Configuration Module -->
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-2 text-on-surface font-body-md">
+<span class="material-symbols-outlined text-outline-variant text-[18px]">settings</span>
+                                                System Config
+                                            </div>
+</td>
+<td class="py-4 px-2 text-center"><input checked="" class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input class="tech-checkbox" type="checkbox"/></td>
+<td class="py-4 px-2 text-center"><input class="tech-checkbox" type="checkbox"/></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Info Footer -->
+<div class="p-4 bg-surface-container-highest/20 border-t border-outline-variant mt-auto">
+<div class="flex items-start gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] mt-0.5 text-primary">info</span>
+<p class="font-body-md text-[13px] leading-relaxed">Changes to the global matrix apply immediately to all active sessions. Ensure correct authorization before saving.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

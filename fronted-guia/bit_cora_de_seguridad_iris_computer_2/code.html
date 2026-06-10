@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Iris Computer - Security Log</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#0e0e10",
+                      "surface-container-low": "#1b1b1d",
+                      "secondary": "#c0c7d3",
+                      "primary": "#8aebff",
+                      "surface-tint": "#2fd9f4",
+                      "on-secondary": "#2a313b",
+                      "on-secondary-container": "#afb5c2",
+                      "surface-container-high": "#2a2a2c",
+                      "primary-container": "#22d3ee",
+                      "outline-variant": "#3c494c",
+                      "on-tertiary-container": "#6e4600",
+                      "background": "#131315",
+                      "on-primary-container": "#005763",
+                      "tertiary-fixed-dim": "#ffb957",
+                      "on-secondary-fixed-variant": "#404752",
+                      "on-background": "#e4e2e4",
+                      "secondary-fixed": "#dce3f0",
+                      "tertiary": "#ffd6a3",
+                      "inverse-surface": "#e4e2e4",
+                      "surface-bright": "#39393b",
+                      "surface-variant": "#353437",
+                      "surface-container": "#1f1f21",
+                      "surface-container-highest": "#353437",
+                      "on-tertiary": "#462b00",
+                      "error-container": "#93000a",
+                      "primary-fixed": "#a2eeff",
+                      "surface-dim": "#131315",
+                      "on-primary-fixed-variant": "#004e5a",
+                      "on-secondary-fixed": "#151c25",
+                      "on-primary": "#00363e",
+                      "inverse-on-surface": "#303032",
+                      "primary-fixed-dim": "#2fd9f4",
+                      "tertiary-fixed": "#ffddb5",
+                      "secondary-fixed-dim": "#c0c7d3",
+                      "error": "#ffb4ab",
+                      "on-tertiary-fixed-variant": "#643f00",
+                      "secondary-container": "#404752",
+                      "inverse-primary": "#006877",
+                      "on-error": "#690005",
+                      "on-primary-fixed": "#001f25",
+                      "tertiary-container": "#ffb13b",
+                      "outline": "#859397",
+                      "on-surface": "#e4e2e4",
+                      "on-error-container": "#ffdad6",
+                      "on-surface-variant": "#bbc9cd",
+                      "on-tertiary-fixed": "#2a1800",
+                      "surface": "#131315"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-padding": "24px",
+                      "gutter": "16px",
+                      "base": "4px",
+                      "sidebar-width": "260px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ],
+                      "display": [
+                              "Geist"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "JetBrains Mono"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "label-sm": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "10px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex selection:bg-primary/30 selection:text-primary">
+<aside class="bg-surface-container dark:bg-surface-container fixed left-0 top-0 h-full w-[260px] border-r border-outline-variant flex flex-col h-full py-6 z-20">
+<div class="px-6 mb-8 flex flex-col gap-1">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-8 h-8 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-bold">IC</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary">Iris Computer</h1>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">ERP System</span>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Main Panel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Sales</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">reset_wrench</span>
+<span class="font-label-md text-label-md">Technical Service</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary/10 border-r-2 border-primary hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Administration</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-error hover:bg-error/10 transition-all duration-200 rounded" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<div class="flex-1 ml-[260px] flex flex-col min-h-screen">
+<header class="bg-surface-container dark:bg-surface-container border-b border-outline-variant flex justify-between items-center h-16 px-container-padding sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<div class="relative focus-within:ring-1 focus-within:ring-primary/50 rounded flex items-center bg-surface-container-highest border border-outline-variant px-3 py-1.5 w-64 transition-all duration-200">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">search</span>
+<input class="bg-transparent border-none text-on-surface focus:ring-0 font-body-md text-body-md placeholder-on-surface-variant/50 w-full py-0" placeholder="Search logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-200 rounded-full hover:bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-200 rounded-full hover:bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-px h-6 bg-outline-variant mx-2"></div>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors duration-200 rounded-full hover:bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">account_circle</span>
+</button>
+</div>
+</header>
+<main class="flex-1 p-container-padding max-w-[1600px] w-full mx-auto">
+<div class="mb-8 flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Security Log</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+                        Comprehensive immutable bitácora of all system access attempts, privilege escalations, and critical data modifications. Retained for 90 days.
+                    </p>
+</div>
+<div class="flex gap-3">
+<button class="border border-outline-variant text-on-surface bg-transparent hover:border-primary/50 hover:bg-primary/5 px-4 py-2 rounded font-label-md text-label-md uppercase tracking-wider flex items-center gap-2 transition-all duration-200">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export CSV
+                    </button>
+<button class="border border-outline-variant text-on-surface bg-transparent hover:border-primary/50 hover:bg-primary/5 px-4 py-2 rounded font-label-md text-label-md uppercase tracking-wider flex items-center gap-2 transition-all duration-200">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filters
+                    </button>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant">
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-medium">User / Entity</th>
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-medium">Action Event</th>
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-medium">IP Address / Host</th>
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-medium">Timestamp (UTC)</th>
+<th class="py-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-medium text-right">Details</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface divide-y divide-outline-variant/50">
+<tr class="hover:bg-surface-container-highest transition-colors duration-150 group">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center text-on-surface font-label-md text-label-md border border-outline-variant">AD</div>
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Admin Root</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: 0001</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center border border-primary/20 bg-primary/10 text-primary font-label-sm text-label-sm uppercase rounded px-2 py-1 tracking-wider gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(34,211,238,0.6)]"></span>
+                                        Auth Success
+                                    </span>
+</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">192.168.1.105</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">2023-10-27 14:32:01</td>
+<td class="py-4 px-4 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors duration-150 group">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center text-on-surface font-label-md text-label-md border border-outline-variant">UN</div>
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Unknown User</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: NULL</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center border border-error/20 bg-error/10 text-error font-label-sm text-label-sm uppercase rounded px-2 py-1 tracking-wider gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                        Auth Failed
+                                    </span>
+</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">45.22.11.90</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">2023-10-27 14:15:22</td>
+<td class="py-4 px-4 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors duration-150 group">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center text-on-surface font-label-md text-label-md border border-outline-variant">MK</div>
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">M. Korolov</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: 4092</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center border border-tertiary/20 bg-tertiary/10 text-tertiary font-label-sm text-label-sm uppercase rounded px-2 py-1 tracking-wider gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                        Data Export
+                                    </span>
+</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">10.0.5.22</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">2023-10-27 13:45:10</td>
+<td class="py-4 px-4 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors duration-150 group">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center text-on-surface font-label-md text-label-md border border-outline-variant">SYS</div>
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">System Process</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: DAEMON</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center border border-primary/20 bg-primary/10 text-primary font-label-sm text-label-sm uppercase rounded px-2 py-1 tracking-wider gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(34,211,238,0.6)]"></span>
+                                        Config Sync
+                                    </span>
+</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">localhost</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">2023-10-27 12:00:00</td>
+<td class="py-4 px-4 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors duration-150 group">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center text-on-surface font-label-md text-label-md border border-outline-variant">JL</div>
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">J. Lin</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: 1024</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center border border-error/20 bg-error/10 text-error font-label-sm text-label-sm uppercase rounded px-2 py-1 tracking-wider gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                        Perm Denied
+                                    </span>
+</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">192.168.1.15</td>
+<td class="py-4 px-4 font-label-md text-label-md text-on-surface-variant">2023-10-27 11:30:45</td>
+<td class="py-4 px-4 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-surface-container-low border-t border-outline-variant px-4 py-3 flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">
+                        Showing 1 to 5 of 12,409 entries
+                    </span>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-background font-label-md text-label-md shadow-[0_0_10px_rgba(34,211,238,0.2)]">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface font-label-md text-label-md">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface font-label-md text-label-md">3</button>
+<span class="w-8 h-8 flex items-center justify-center text-on-surface-variant">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

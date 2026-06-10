@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ajustes - Apariencia | Iris Computer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#ffb13b",
+                        "on-tertiary-container": "#6e4600",
+                        "on-primary-container": "#005763",
+                        "background": "#131315",
+                        "on-error": "#690005",
+                        "surface-dim": "#131315",
+                        "surface-container-high": "#2a2a2c",
+                        "surface": "#131315",
+                        "secondary-fixed-dim": "#c0c7d3",
+                        "tertiary-fixed-dim": "#ffb957",
+                        "on-tertiary": "#462b00",
+                        "on-primary-fixed": "#001f25",
+                        "surface-bright": "#39393b",
+                        "primary-fixed": "#a2eeff",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "outline": "#859397",
+                        "tertiary-fixed": "#ffddb5",
+                        "on-tertiary-fixed-variant": "#643f00",
+                        "inverse-surface": "#e4e2e4",
+                        "surface-container-lowest": "#0e0e10",
+                        "primary": "#8aebff",
+                        "on-secondary-fixed-variant": "#404752",
+                        "surface-variant": "#353437",
+                        "secondary-container": "#404752",
+                        "on-secondary-fixed": "#151c25",
+                        "secondary-fixed": "#dce3f0",
+                        "on-surface-variant": "#bbc9cd",
+                        "surface-container-low": "#1b1b1d",
+                        "primary-container": "#22d3ee",
+                        "on-secondary": "#2a313b",
+                        "surface-container-highest": "#353437",
+                        "secondary": "#c0c7d3",
+                        "on-tertiary-fixed": "#2a1800",
+                        "on-secondary-container": "#afb5c2",
+                        "outline-variant": "#3c494c",
+                        "surface-tint": "#2fd9f4",
+                        "on-background": "#e4e2e4",
+                        "on-primary": "#00363e",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffd6a3",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "surface-container": "#1f1f21",
+                        "on-surface": "#e4e2e4",
+                        "inverse-primary": "#006877",
+                        "inverse-on-surface": "#303032"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "base": "4px",
+                        "sidebar-width": "260px",
+                        "gutter": "16px",
+                        "container-padding": "24px"
+                    },
+                    fontFamily: {
+                        "label-md": ["JetBrains Mono"],
+                        "body-lg": ["Geist"],
+                        "display": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-md": ["Geist"]
+                    },
+                    fontSize: {
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "display": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "label-sm": ["10px", { lineHeight: "14px", letterSpacing: "0.05em", fontWeight: "500" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .glow-cyan { box-shadow: 0px 0px 15px rgba(34, 211, 238, 0.3); }
+    </style>
+</head>
+<body class="min-h-screen flex text-on-background bg-background font-body-md overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[260px] bg-surface-container border-r border-outline-variant flex flex-col z-20 hidden md:flex">
+<div class="px-container-padding py-6 border-b border-outline-variant">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Iris Computer</h1>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">ERP System</p>
+</div>
+<nav class="flex-1 overflow-y-auto py-6">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Main Panel</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Sales</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_wrench">reset_wrench</span>
+<span class="font-label-md text-label-md">Technical Service</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary/10 border-r-2 border-primary transition-transform scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Administration</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="px-4 py-6 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 md:ml-[260px] flex flex-col h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface-container flex justify-between items-center h-16 px-container-padding border-b border-outline-variant z-10 sticky top-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface border border-outline-variant text-on-surface placeholder-on-surface-variant rounded-DEFAULT pl-9 pr-4 py-1.5 focus:border-primary focus:ring-1 focus:ring-primary/50 font-label-md text-label-md w-64 transition-all duration-200" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200"><span class="material-symbols-outlined" data-icon="help">help</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span></button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-container-padding bg-background max-w-[1600px] w-full mx-auto">
+<div class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Ajustes</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Configuración general del sistema.</p>
+</div>
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Internal Settings Sidebar -->
+<aside class="w-full lg:w-64 flex-shrink-0">
+<nav class="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0 hide-scrollbar">
+<a class="flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">person</span>
+<span class="font-label-md text-label-md">Perfil</span>
+</a>
+<a class="flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">lock</span>
+<span class="font-label-md text-label-md">Contraseña</span>
+</a>
+<a class="flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-primary bg-surface-container border border-outline-variant glow-cyan" href="#">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">palette</span>
+<span class="font-label-md text-label-md">Apariencia</span>
+</a>
+</nav>
+</aside>
+<!-- Settings Content Canvas -->
+<div class="flex-1 bg-surface-container border border-outline-variant rounded-DEFAULT p-6">
+<div class="border-b border-outline-variant pb-4 mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Apariencia de la interfaz</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Personaliza cómo se ve Iris Computer en este dispositivo.</p>
+</div>
+<!-- Appearance Options Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+<!-- Light Theme Option -->
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="theme_preference" type="radio" value="light"/>
+<div class="bg-surface border border-outline-variant rounded-DEFAULT p-4 flex flex-col items-center gap-4 transition-all duration-200 hover:border-primary/50 peer-checked:border-primary peer-checked:ring-1 peer-checked:ring-primary/50 peer-checked:bg-primary/5">
+<div class="w-20 h-16 bg-inverse-surface rounded-sm border border-outline-variant overflow-hidden flex flex-col relative">
+<div class="h-3 bg-surface-container-high border-b border-outline-variant"></div>
+<div class="flex-1 flex">
+<div class="w-5 bg-surface-container-low border-r border-outline-variant"></div>
+<div class="flex-1 bg-on-primary"></div>
+</div>
+<span class="material-symbols-outlined absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-surface-variant text-2xl">light_mode</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 rounded-full border border-outline-variant peer-checked:border-primary peer-checked:border-[4px] transition-all"></div>
+<span class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Claro</span>
+</div>
+</div>
+</label>
+<!-- Dark Theme Option (Active) -->
+<label class="relative cursor-pointer group">
+<input checked="" class="peer sr-only" name="theme_preference" type="radio" value="dark"/>
+<div class="bg-surface border border-outline-variant rounded-DEFAULT p-4 flex flex-col items-center gap-4 transition-all duration-200 hover:border-primary/50 peer-checked:border-primary peer-checked:ring-1 peer-checked:ring-primary/50 peer-checked:bg-primary/5 glow-cyan">
+<div class="w-20 h-16 bg-surface-container rounded-sm border border-outline-variant overflow-hidden flex flex-col relative">
+<div class="h-3 bg-surface-container-highest border-b border-outline-variant"></div>
+<div class="flex-1 flex">
+<div class="w-5 bg-surface-variant border-r border-outline-variant"></div>
+<div class="flex-1 bg-background"></div>
+</div>
+<span class="material-symbols-outlined absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">dark_mode</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 rounded-full border-primary border-[4px] transition-all"></div>
+<span class="font-label-md text-label-md text-primary font-bold transition-colors">Oscuro</span>
+</div>
+</div>
+</label>
+<!-- System Theme Option -->
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="theme_preference" type="radio" value="system"/>
+<div class="bg-surface border border-outline-variant rounded-DEFAULT p-4 flex flex-col items-center gap-4 transition-all duration-200 hover:border-primary/50 peer-checked:border-primary peer-checked:ring-1 peer-checked:ring-primary/50 peer-checked:bg-primary/5">
+<div class="w-20 h-16 bg-surface rounded-sm border border-outline-variant overflow-hidden flex flex-col relative">
+<!-- Split diagonally using css gradient -->
+<div class="absolute inset-0 bg-gradient-to-br from-inverse-surface via-inverse-surface to-surface-container via-50% to-50%"></div>
+<span class="material-symbols-outlined absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-on-surface-variant text-2xl z-10">desktop_windows</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 rounded-full border border-outline-variant peer-checked:border-primary peer-checked:border-[4px] transition-all"></div>
+<span class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Sistema</span>
+</div>
+</div>
+</label>
+</div>
+<div class="mt-8 flex justify-end gap-4 border-t border-outline-variant pt-6">
+<button class="px-4 py-2 rounded-DEFAULT border border-outline-variant text-on-surface hover:border-primary/50 transition-colors font-label-md text-label-md uppercase">
+                            Restablecer
+                        </button>
+<button class="px-6 py-2 rounded-DEFAULT bg-primary text-on-primary hover:bg-primary-fixed transition-colors font-label-md text-label-md font-bold uppercase glow-cyan">
+                            Guardar Cambios
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<style>
+        /* Utility to hide scrollbar but keep functionality for horizontal nav on mobile */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</body></html>

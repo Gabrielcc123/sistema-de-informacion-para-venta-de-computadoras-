@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ajustes de Perfil - Iris Computer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Geist:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#ffb13b",
+                        "on-tertiary-container": "#6e4600",
+                        "on-primary-container": "#005763",
+                        "background": "#131315",
+                        "on-error": "#690005",
+                        "surface-dim": "#131315",
+                        "surface-container-high": "#2a2a2c",
+                        "surface": "#131315",
+                        "secondary-fixed-dim": "#c0c7d3",
+                        "tertiary-fixed-dim": "#ffb957",
+                        "on-tertiary": "#462b00",
+                        "on-primary-fixed": "#001f25",
+                        "surface-bright": "#39393b",
+                        "primary-fixed": "#a2eeff",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "outline": "#859397",
+                        "tertiary-fixed": "#ffddb5",
+                        "on-tertiary-fixed-variant": "#643f00",
+                        "inverse-surface": "#e4e2e4",
+                        "surface-container-lowest": "#0e0e10",
+                        "primary": "#8aebff",
+                        "on-secondary-fixed-variant": "#404752",
+                        "surface-variant": "#353437",
+                        "secondary-container": "#404752",
+                        "on-secondary-fixed": "#151c25",
+                        "secondary-fixed": "#dce3f0",
+                        "on-surface-variant": "#bbc9cd",
+                        "surface-container-low": "#1b1b1d",
+                        "primary-container": "#22d3ee",
+                        "on-secondary": "#2a313b",
+                        "surface-container-highest": "#353437",
+                        "secondary": "#c0c7d3",
+                        "on-tertiary-fixed": "#2a1800",
+                        "on-secondary-container": "#afb5c2",
+                        "outline-variant": "#3c494c",
+                        "surface-tint": "#2fd9f4",
+                        "on-background": "#e4e2e4",
+                        "on-primary": "#00363e",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffd6a3",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "surface-container": "#1f1f21",
+                        "on-surface": "#e4e2e4",
+                        "inverse-primary": "#006877",
+                        "inverse-on-surface": "#303032"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "sidebar-width": "260px",
+                        "gutter": "16px",
+                        "container-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["JetBrains Mono"],
+                        "body-lg": ["Geist"],
+                        "display": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #131315; }
+        .card-bg { background-color: #1f1f21; }
+        .glow-btn { box-shadow: 0px 0px 15px rgba(34, 211, 238, 0.3); }
+        .glow-btn:hover { box-shadow: 0px 0px 20px rgba(34, 211, 238, 0.5); }
+    </style>
+</head>
+<body class="text-on-surface font-body-md antialiased min-h-screen flex bg-background">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[260px] bg-surface-container border-r border-outline-variant flex flex-col py-6 z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Iris Computer</h1>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">ERP System</p>
+</div>
+<div class="flex-1 overflow-y-auto space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Main Panel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Sales</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_wrench">reset_wrench</span>
+<span class="font-label-md text-label-md">Technical Service</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary/10 border-r-2 border-primary hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Administration</span>
+</a>
+</div>
+<div class="mt-auto px-4 pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-[260px] flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="h-16 flex justify-between items-center px-container-padding bg-surface-container border-b border-outline-variant sticky top-0 z-40">
+<div class="flex-1">
+<!-- Search could go here -->
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 p-2 rounded-full focus:outline-none focus:ring-1 focus:ring-primary/50">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 p-2 rounded-full focus:outline-none focus:ring-1 focus:ring-primary/50">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 p-2 rounded-full focus:outline-none focus:ring-1 focus:ring-primary/50">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-container-padding flex-1">
+<div class="max-w-[1600px] mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-8">Ajustes</h2>
+<div class="flex flex-col md:flex-row gap-8">
+<!-- Inner Sidebar -->
+<div class="w-full md:w-64 flex-shrink-0">
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-surface-container-highest rounded-lg transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                                Perfil
+                            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-lg transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+                                Contraseña
+                            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-lg transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+                                Apariencia
+                            </a>
+</nav>
+</div>
+<!-- Settings Content -->
+<div class="flex-1 max-w-xl">
+<div class="card-bg border border-outline-variant rounded-xl overflow-hidden">
+<div class="px-6 py-5 border-b border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface">Información del Perfil</h3>
+<p class="text-on-surface-variant font-body-md mt-1">Actualice la información de su cuenta y dirección de correo electrónico.</p>
+</div>
+<div class="p-6">
+<form class="space-y-6">
+<div class="flex items-center gap-6 mb-6">
+<div class="h-20 w-20 rounded-full bg-surface-variant flex items-center justify-center border border-outline-variant relative overflow-hidden group cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:hidden">person</span>
+<div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white">edit</span>
+</div>
+</div>
+<div>
+<button class="px-4 py-2 bg-surface-container-high border border-outline-variant rounded hover:bg-surface-variant transition-colors text-on-surface font-label-md text-label-md" type="button">
+                                                Cambiar avatar
+                                            </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="firstName">Nombre</label>
+<input class="w-full bg-background border border-outline-variant rounded px-4 py-2 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors font-body-md placeholder-on-surface-variant/50" id="firstName" name="firstName" type="text" value="Admin"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="lastName">Apellido</label>
+<input class="w-full bg-background border border-outline-variant rounded px-4 py-2 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors font-body-md placeholder-on-surface-variant/50" id="lastName" name="lastName" type="text" value="Usuario"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="email">Correo Electrónico</label>
+<input class="w-full bg-background border border-outline-variant rounded px-4 py-2 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors font-body-md placeholder-on-surface-variant/50" id="email" name="email" type="email" value="admin@iriscomputer.com"/>
+</div>
+<div class="pt-4 flex justify-end">
+<button class="glow-btn bg-primary text-on-primary-fixed px-6 py-2 rounded font-label-md text-label-md font-bold uppercase tracking-wider transition-all duration-200" type="submit">
+                                            Guardar
+                                        </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
