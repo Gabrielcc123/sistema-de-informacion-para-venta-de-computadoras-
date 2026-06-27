@@ -21,7 +21,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.895-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-            <div class="text-3xl font-bold text-gray-100 mb-1">Bs. {{ number_format($ventasHoy, 2) }}</div>
+            <div class="text-3xl font-bold text-gray-100 mb-1">Bs. <?php echo e(number_format($ventasHoy, 2)); ?></div>
             <div class="text-xs text-cyan-400">Ventas del día</div>
         </div>
 
@@ -34,7 +34,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.032 4.032m-1.745 1.437l.102.085" />
                 </svg>
             </div>
-            <div class="text-3xl font-bold text-gray-100 mb-1">{{ $ordenesPendientes }}</div>
+            <div class="text-3xl font-bold text-gray-100 mb-1"><?php echo e($ordenesPendientes); ?></div>
             <div class="text-xs text-amber-400">Órdenes pendientes</div>
         </div>
 
@@ -47,7 +47,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493A15.87 15.87 0 0112 19.5c-1.89 0-3.68-.549-5.21-1.487a4.125 4.125 0 00-7.533 2.493A9.337 9.337 0 003.375 19.5M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zM3.75 12a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
                 </svg>
             </div>
-            <div class="text-3xl font-bold text-gray-100 mb-1">{{ $usuariosActivos }}</div>
+            <div class="text-3xl font-bold text-gray-100 mb-1"><?php echo e($usuariosActivos); ?></div>
             <div class="text-xs text-emerald-400 flex items-center gap-1">En línea ahora</div>
         </div>
 
@@ -60,7 +60,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-            <div class="text-3xl font-bold text-gray-100 mb-1">{{ $accionesHoy }}</div>
+            <div class="text-3xl font-bold text-gray-100 mb-1"><?php echo e($accionesHoy); ?></div>
             <div class="text-xs text-gray-500">Registradas en bitácora</div>
         </div>
     </div>
@@ -74,10 +74,10 @@
                     new Chart(document.getElementById('chartVentas'), {
                         type: 'bar',
                         data: {
-                            labels: {{ Js::from(array_keys($ventasSemana)) }},
+                            labels: <?php echo e(Js::from(array_keys($ventasSemana))); ?>,
                             datasets: [{
                                 label: 'Ventas (Bs.)',
-                                data: {{ Js::from(array_values($ventasSemana)) }},
+                                data: <?php echo e(Js::from(array_values($ventasSemana))); ?>,
                                 backgroundColor: 'rgba(34, 211, 238, 0.6)',
                                 borderColor: '#22d3ee',
                                 borderWidth: 1,
@@ -114,9 +114,9 @@
                     new Chart(document.getElementById('chartPagos'), {
                         type: 'doughnut',
                         data: {
-                            labels: {{ Js::from(array_keys($pagosDistribucion)) }},
+                            labels: <?php echo e(Js::from(array_keys($pagosDistribucion))); ?>,
                             datasets: [{
-                                data: {{ Js::from(array_values($pagosDistribucion)) }},
+                                data: <?php echo e(Js::from(array_values($pagosDistribucion))); ?>,
                                 backgroundColor: [
                                     '#22d3ee',
                                     '#a78bfa',
@@ -168,27 +168,29 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-800 text-gray-300">
-                    @forelse ($acciones as $accion)
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $acciones; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $accion): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
                         <tr class="hover:bg-[#262629] transition-colors">
                             <td class="px-5 py-3 font-medium text-gray-100">
-                                {{ $accion->usuario ? $accion->usuario->nombre . ' ' . $accion->usuario->apellido : 'Sistema' }}
+                                <?php echo e($accion->usuario ? $accion->usuario->nombre . ' ' . $accion->usuario->apellido : 'Sistema'); ?>
+
                             </td>
-                            <td class="px-5 py-3">{{ $accion->accion }}</td>
+                            <td class="px-5 py-3"><?php echo e($accion->accion); ?></td>
                             <td class="px-5 py-3 text-gray-500">
-                                {{ $accion->fecha }} · {{ $accion->hora }}
+                                <?php echo e($accion->fecha); ?> · <?php echo e($accion->hora); ?>
+
                             </td>
-                            <td class="px-5 py-3 text-gray-500 font-mono text-xs">{{ $accion->ip }}</td>
+                            <td class="px-5 py-3 text-gray-500 font-mono text-xs"><?php echo e($accion->ip); ?></td>
                         </tr>
-                    @empty
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                         <tr>
                             <td colspan="4" class="px-5 py-8 text-center text-gray-500">
                                 No hay acciones registradas recientemente.
                             </td>
                         </tr>
-                    @endforelse
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-</div>
+</div><?php /**PATH /home/gabriel/Escritorio/Metodologia/sistema-de-informacion-para-venta-de-computadoras-/resources/views/livewire/dashboard/admin.blade.php ENDPATH**/ ?>

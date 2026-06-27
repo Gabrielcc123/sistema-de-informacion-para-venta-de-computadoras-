@@ -1,0 +1,182 @@
+================================================================================
+ SOLUCIÓN AL ERROR DE BITÁCORA: "Column 'idUsuario' cannot be null"
+ Entorno: Laravel 12.60.2 / PHP 8.5.4 / MySQL 8 (strict mode)
+ Fecha: 2026-06-23
+================================================================================
+
+------------------------------------------------------------------------------
+1. DIAGNÓSTICO DEL PROBLEMA
+------------------------------------------------------------------------------
+
+Error reportado:
+  SQLSTATE[23000]: Integrity constraint violation: 1048
+  Column 'idUsuario' cannot be null
+  Archivo: app/Models/Bitacora.php:33  (método Bitacora::registrar())
+  Consulta: insert into `bitacora` (`idUsuario`, `accion`, `ip`, `fecha`, `hora`)
+            values (?, Bloqueo temporal de cuenta (Intentos superados), ...)
+
+Causa raíz:
+  - La tabla `bitacora` define la columna `idUsuario` como NOT NULL con una
+    FK hacia `usuario.idUsuario` (ver migración original:
+    database/migrations/2026_05_20_195750_create_bitacoras_table.php, línea 21).
+  - El método Bitacora::registrar() calcula el usuario como:
+        $idUsuario ?? Auth::id()
+    En un intento de inicio de sesión FALLIDO o bloqueado por rate-limit,
+    ningún usuario está autenticado, por lo que Auth::id() devuelve NULL.
+  - En MySQL 8 con strict mode activado, intentar INSERTar NULL en una
+    columna NOT NULL se rechaza de inmediato lanzando la excepción 1048,
+    interrumpiendo el flujo (en lugar de registrar el evento de seguridad).
+
+Evento que lo dispara:
+  resources/views/livewire/auth/login.blade.php:76, dentro del método
+  ensureIsNotRateLimited(), cuando se superan los 3 intentos permitidos y
+  se intenta registrar el bloqueo temporal.
+
+------------------------------------------------------------------------------
+2. ANÁLISIS DE LA ESTRUCTURA ACTUAL
+------------------------------------------------------------------------------
+
+Migración original (database/migrations/2026_05_20_195750_create_bitacoras_table.php):
+  - $table->integer('idBitacora')->autoIncrement();   // PK
+  - $table->integer('idUsuario')->nullable(false);    // FK NOT NULL  <-- PROBLEMA
+  - $table->text('accion')->nullable(false);
+  - $table->string('ip', 45)->nullable(false);
+  - $table->date('fecha')->nullable(false);
+  - $table->time('hora')->nullable(false);
+  - FK idUsuario -> usuario.idUsuario ON UPDATE cascade ON DELETE cascade
+  - Sin timestamps (auditoría estática).
+
+Modelo (app/Models/Bitacora.php):
+  - $table = 'bitacora'; $timestamps = false;
+  - fillable: idUsuario, accion, ip, fecha, hora.
+  - registrar(string $accion, $idUsuario = null) =>
+        'idUsuario' => $idUsuario ?? Auth::id()
+    La lógica YA está preparada para recibir null; el bloqueo venía
+    exclusivamente de la restricción NOT NULL a nivel de BD.
+
+Modelo Usuario (app/Models/Usuario.php):
+  - protected $primaryKey = 'idUsuario';  (NO es 'id')
+
+Bug secundario detectado en login.blade.php:76:
+  Se pasaba $user->id, pero el PK del modelo Usuario es 'idUsuario', por lo
+  que $user->id devolvía null AUN cuando el usuario existía. Esto hacía que
+  los bloqueos por rate-limit nunca quedaran asociados al usuario real.
+
+------------------------------------------------------------------------------
+3. DECISIÓN ARQUITECTÓNICA
+------------------------------------------------------------------------------
+
+Opción A (descartada): "No registrar si no hay usuario" en el modelo.
+  - Implicaría perder precisamente los eventos de seguridad MÁS importantes:
+    intentos fallidos, fuerza bruta, accesos a cuentas suspendidas, bloqueos
+    por rate-limit. Anula el propósito de una bitácora de auditoría.
+
+Opción B (ELEGIDA): Hacer `idUsuario` nullable a nivel de base de datos.
+  - Una bitácora de auditoría debe poder registrar eventos de usuarios no
+    autenticados (invitados / anónimos). NULL es el valor correcto para
+    representar "acción realizada por un actor desconocido o no logueado".
+  - En SQL estándar (y MySQL/InnoDB), un valor NULL en una columna con FK
+    NO se valida contra la tabla referenciada. Por tanto, se conserva la
+    integridad referencial para TODAS las filas que sí tengan un usuario
+    asociado, mientras se permiten registros de eventos anónimos.
+  - El modelo Bitacora::registrar() ya implementa la lógica correcta
+    ($idUsuario ?? Auth::id()), por lo que NO requiere cambios: con la
+    columna nullable, insertar null simplemente funcionará.
+  - Se mantiene la FK con cascade para no perder el comportamiento original
+    de propagación de borrados/actualizaciones sobre el usuario.
+
+Conclusión: modificar la migración (nullable + FK preservada) + corregir el
+bug $user->id -> $user->idUsuario en el login. Es la solución mínima, no
+invasiva y alineada con las buenas prácticas de auditoría en Laravel.
+
+------------------------------------------------------------------------------
+4. ARCHIVOS MODIFICADOS
+------------------------------------------------------------------------------
+
+4.1 NUEVO: database/migrations/2026_06_23_000000_make_idusuario_nullable_in_bitacora_table.php
+  - Migración de tipo ALTER sobre la tabla `bitacora`.
+  - up():
+      * dropForeign(['idUsuario'])        -> libera la columna para modificarla.
+      * integer('idUsuario')->nullable()->change()  -> permite NULL.
+      * foreign('idUsuario')->references('idUsuario')->on('usuario')
+              ->onUpdate('cascade')->onDelete('cascade')  -> re-crea la FK.
+  - down():
+      * Borra filas huérfanas con idUsuario NULL (para poder volver a NOT NULL).
+      * dropForeign, change a nullable(false), re-crea FK original.
+  - Nota: Laravel 11+/12 soporta ->change() nativamente para MySQL sin
+    requerir doctrine/dbal.
+
+4.2 EDITADO: resources/views/livewire/auth/login.blade.php (línea 76)
+  - Antes:  $user ? $user->id : null
+  - Ahora:  $user ? $user->idUsuario : null
+  - Razón: el PK del modelo Usuario es 'idUsuario' (app/Models/Usuario.php:13).
+    Con $user->id se pasaba null aunque el usuario existiera, impidiendo
+    asociar el bloqueo por rate-limit al usuario correcto. Ahora, cuando el
+    email exista en la BD, el bloqueo queda vinculado al usuario real; y si
+    no existe, se registra como anónimo (null), que ya es aceptado por la
+    columna nullable.
+
+4.3 SIN CAMBIOS: app/Models/Bitacora.php
+  - La lógica $idUsuario ?? Auth::id() ya es correcta y soporta null.
+  - Con la columna nullable, el INSERT de eventos anónimos funciona sin
+    modificar el modelo. Se documenta para evitar "soluciones" que oculten
+    el evento en lugar de registrarlo.
+
+------------------------------------------------------------------------------
+5. COMANDOS A EJECUTAR
+------------------------------------------------------------------------------
+
+Aplicar la migración a la base de datos de desarrollo (tech1):
+
+    php artisan migrate
+
+Verificar el estado de las migraciones:
+
+    php artisan migrate:status
+
+Verificar el cambio directamente en MySQL (opcional):
+
+    php artisan db:show
+    php artisan tinker
+    >>> Schema::getColumnType('bitacora', 'idUsuario');
+    >>> DB::select("SHOW CREATE TABLE bitacora");
+
+  En el resultado de SHOW CREATE TABLE debería aparecer:
+    `idUsuario` int DEFAULT NULL
+    CONSTRAINT ... FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
+      ON UPDATE CASCADE ON DELETE CASCADE
+
+En caso de necesitar revertir:
+
+    php artisan migrate:rollback --step=1
+
+------------------------------------------------------------------------------
+6. VERIFICACIÓN FUNCIONAL
+------------------------------------------------------------------------------
+
+1. Intentar iniciar sesión con credenciales inválidas 3 veces seguidas
+   para disparar el rate-limit (Bloqueo temporal de cuenta).
+2. Confirmar que ya NO se lanza el error 1048 y que el evento se registra:
+       SELECT * FROM bitacora ORDER BY idBitacora DESC LIMIT 5;
+   - Para un email existente: idUsuario debe contener el id del usuario.
+   - Para un email inexistente: idUsuario debe ser NULL (invitado/anónimo).
+3. Verificar que los login exitosos siguen registrando idUsuario correctamente
+   y que la FK cascade sigue funcionando (borrar un usuario propaga el borrado
+   a sus filas en bitacora).
+
+------------------------------------------------------------------------------
+7. NOTAS DE SEGURIDAD / BUENAS PRÁCTICAS
+------------------------------------------------------------------------------
+
+- Conservar SIEMPRE MySQL 8 en strict mode: esta solución NO relaja las
+  validaciones de la aplicación, sólo permite NULL en una columna de
+  auditoría cuyo dominio legítimo incluye "actor desconocido".
+- Para eventos sensibles (login fallido, bloqueo, cuenta suspendida) conviene
+  registrar además IP y, si aplica, el email intentado. La columna `accion`
+  (TEXT) permite incluir ese contexto textual sin cambiar el esquema.
+- No habilitar Sqlite ni desactivar strict mode como "workaround": el fix
+  correcto es el de esquema + modelo aquí planteado.
+
+================================================================================
+ FIN DEL DOCUMENTO
+================================================================================

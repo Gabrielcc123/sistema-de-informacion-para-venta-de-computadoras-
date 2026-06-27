@@ -22,26 +22,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         $user = Auth::user();
 
-        $acciones = \App\Models\Bitacora::with('usuario')
-            ->orderBy('fecha', 'desc')
-            ->orderBy('hora', 'desc')
-            ->limit(10)
-            ->get();
-
         if ($user->tipoSupervisor) {
-            return view('livewire.dashboard.admin', compact('acciones'));
+            return view('livewire.dashboard.admin_page');
         }
 
         if ($user->tipoAssesor) {
-            return view('livewire.dashboard.vendedor');
+            return view('livewire.dashboard.vendedor_page');
         }
 
         if ($user->tipoTecnico) {
-            return view('livewire.dashboard.tecnico');
+            return view('livewire.dashboard.tecnico_page');
         }
 
         // Fallback por seguridad
-        return view('livewire.dashboard.admin', compact('acciones'));
+        return view('livewire.dashboard.admin_page');
     })->name('dashboard');
 
     // ---------------------------------------------------------------------

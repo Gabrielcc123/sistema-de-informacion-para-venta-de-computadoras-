@@ -43,11 +43,11 @@ new #[Layout('components.layouts.app')] class extends Component {
     <div id="recibo-imprimir" class="bg-[#202022] border border-gray-800 rounded-xl p-8 max-w-4xl mx-auto">
         <!-- Cabecera del recibo -->
         <div class="text-center border-b border-gray-800 pb-6 mb-6">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <img src="{{ asset('img/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                <span class="text-blue-500 font-bold text-xl tracking-wider">IRIS COMPUTER</span>
+            <div class="flex flex-col items-center justify-center gap-2 mb-2">
+                <img src="{{ asset('img/logoP.png') }}" alt="Logo Syscraft" class="w-12 h-12 object-contain">
+                <span class="text-xl font-bold text-gray-100 tracking-wider">SYSCRAFT</span>
             </div>
-            <p class="text-xs text-gray-500 uppercase tracking-widest">Venta de Componentes y Servicios Técnicos</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest">ERP - Sistema de Gestión Comercial</p>
             <h1 class="text-2xl font-bold text-gray-100 mt-4">NOTA DE VENTA</h1>
             <p class="text-sm text-gray-400 mt-1">Nro. <span class="font-mono font-bold text-cyan-400">#{{ $venta->nroNotaVenta }}</span></p>
         </div>

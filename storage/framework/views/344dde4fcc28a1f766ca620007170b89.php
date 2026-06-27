@@ -7,87 +7,6 @@ use Illuminate\Validation\ValidationException;
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
 
-new #[Layout('components.layouts.auth')] class extends Component {
-    public string $email = '';
-    public string $password = '';
-
-    public function login()
-    {
-        // 1. Validar los datos de entrada
-        $credentials = $this->validate([
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
-        ]);
-
-        // 2. Verificar si el usuario está bloqueado temporalmente ANTES de consultar la BD
-        $this->ensureIsNotRateLimited();
-
-        // 3. Intentar autenticar al usuario
-        if (! Auth::attempt($credentials)) {
-            // Si falla, sumamos 1 al contador. Si llega a 3, se bloquea por 60 segundos.
-            RateLimiter::hit($this->throttleKey(), 60);
-
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
-        }
-
-        // 3.1 Verificar que el usuario no esté suspendido
-        $usuario = Auth::user();
-        if ($usuario->estado == 0) {
-            Auth::logout();
-            \App\Models\Bitacora::registrar('Intento de acceso con cuenta suspendida', $usuario->idUsuario);
-
-            throw ValidationException::withMessages([
-                'email' => 'Su cuenta ha sido suspendida. Contacte al administrador.',
-            ]);
-        }
-
-        // 4. Si el login es exitoso, limpiamos el historial de fallos
-        RateLimiter::clear($this->throttleKey());
-
-        // 4.1 Registrar en bitácora
-        \App\Models\Bitacora::registrar('Login exitoso');
-
-        // 5. CERRAR SESIONES ANTIGUAS
-        Auth::logoutOtherDevices($this->password);
-
-        // 6. Regenerar la sesión por seguridad
-        session()->regenerate();
-
-        // 7. Redirigir al dashboard
-        return redirect()->intended(route('dashboard', absolute: false));
-    }
-
-    /**
-     * Asegura que la solicitud no haya excedido el límite de intentos (Máximo 3).
-     */
-    protected function ensureIsNotRateLimited(): void
-    {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 3)) {
-            return;
-        }
-
-        $seconds = RateLimiter::availableIn($this->throttleKey());
-        $minutes = ceil($seconds / 60);
-
-        // BUSCAMOS AL USUARIO Y REGISTRAMOS EL BLOQUEO
-        $user = \App\Models\Usuario::where('email', $this->email)->first();
-        \App\Models\Bitacora::registrar('Bloqueo temporal de cuenta (Intentos superados)', $user ? $user->idUsuario : null);
-
-        throw ValidationException::withMessages([
-            'email' => "Demasiados intentos de acceso. Por favor intente nuevamente en {$minutes} minuto(s).",
-        ]);
-    }
-
-    /**
-     * Crea una llave única combinando el correo electrónico y la dirección IP.
-     */
-    protected function throttleKey(): string
-    {
-        return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
-    }
-};
 ?>
 
 <div class="min-h-screen flex items-center justify-center bg-gray-950 relative overflow-hidden">
@@ -100,7 +19,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <div class="relative z-10 w-full max-w-sm p-8 bg-[#161618] rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-gray-800">
         
         <div class="flex flex-col items-center justify-center text-center mb-8">
-            <img src="{{ asset('img/logoP.png') }}" alt="Logo SYSCRAFT" class="w-16 h-16 object-contain mb-3">
+            <img src="<?php echo e(asset('img/logoP.png')); ?>" alt="Logo SYSCRAFT" class="w-16 h-16 object-contain mb-3">
 
             <h1 class="text-3xl font-extrabold tracking-widest text-blue-500 uppercase drop-shadow-md">
                 SYSCRAFT
@@ -126,7 +45,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
                     <input wire:model="email" type="email" placeholder="ejemplo@correo.com" 
                             class="block w-full pl-10 pr-3 py-2.5 border border-gray-700 rounded-lg bg-[#202022] text-gray-200 placeholder-gray-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 sm:text-sm transition-all duration-300" required>
                 </div>
-                @error('email') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs mt-1"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
             </div>
 
             <div x-data="{ showPassword: false }">
@@ -164,4 +90,4 @@ new #[Layout('components.layouts.auth')] class extends Component {
             </a>
         </div>
     </div>
-</div>
+</div><?php /**PATH /home/gabriel/Escritorio/Metodologia/sistema-de-informacion-para-venta-de-computadoras-/resources/views/livewire/auth/login.blade.php ENDPATH**/ ?>
