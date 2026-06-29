@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from "@tailwindcss/vite";
@@ -8,11 +7,10 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
-            // Agrega esto para que los assets tengan la ruta correcta en producción
-            buildDirectory: 'build', 
+            buildDirectory: 'build', // Indica a Laravel que busque aquí
         }),
         tailwindcss(),
     ],
-    // Asegúrate de definir el base path para producción
-    base: '/build/', 
+    // ESTO ES LO QUE OBLIGARÁ A VITE A ESCRIBIR BIEN LAS RUTAS
+    base: process.env.APP_ENV === 'production' ? '/build/' : '/',
 });
