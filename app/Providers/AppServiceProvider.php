@@ -22,7 +22,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //temporal production 
-        Vite::useBuildDirectory('build');
+
+        if ($this->app->environment('production')) {
+        \Illuminate\Support\Facades\Vite::useBuildDirectory('build');
+        }
+        
         // 1. Regla fuerte de contraseñas
         Password::defaults(function () {
             return Password::min(8)
