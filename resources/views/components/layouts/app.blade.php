@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
 <head>
     @include('partials.head')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-white dark:bg-[#161618] text-gray-900 dark:text-gray-100 antialiased min-h-screen flex">
 

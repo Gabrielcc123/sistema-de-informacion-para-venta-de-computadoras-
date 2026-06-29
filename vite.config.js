@@ -7,10 +7,9 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
-            buildDirectory: 'build', // Indica a Laravel que busque aquí
+            buildDirectory: 'build', 
         }),
         tailwindcss(),
     ],
-    // ESTO ES LO QUE OBLIGARÁ A VITE A ESCRIBIR BIEN LAS RUTAS
     base: process.env.APP_ENV === 'production' ? '/build/' : '/',
 });
