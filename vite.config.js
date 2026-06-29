@@ -11,5 +11,6 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
-    base: process.env.APP_ENV === 'production' ? '/build/' : '/',
+    // Definición directa y fija para producción
+    base: '/build/',
 });
